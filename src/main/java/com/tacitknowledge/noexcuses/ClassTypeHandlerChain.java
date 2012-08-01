@@ -22,8 +22,8 @@ public class ClassTypeHandlerChain {
         }
     }
 
-    public Object processChain(Class type){
-        Object result = null;
+    public <T> T processChain(Class<T> type){
+        T result = null;
         for (Object aHandlList : handlList) {
             ClassTypeHandler classTypeHandler = (ClassTypeHandler) aHandlList;
             result = classTypeHandler.createInstance(type);
