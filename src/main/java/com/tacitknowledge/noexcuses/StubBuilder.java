@@ -14,8 +14,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
-import javax.script.Invocable;
-
 /** @author mshort */
 @SuppressWarnings("PMD")
 public class StubBuilder extends AbstractParamBuilder implements ParamBuilder

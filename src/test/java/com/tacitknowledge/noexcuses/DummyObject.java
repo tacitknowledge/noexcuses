@@ -7,7 +7,6 @@ public class DummyObject {
     private String something;
     private String another;
     private boolean trythis;
-    private EmptyEnum emptyEnum;
 
     public DummyObject(String something, String another) {
         this.something = something;
@@ -41,9 +40,5 @@ public class DummyObject {
 
     public void throwAnException() {
         throw new RuntimeException("sample runtime exception");
-    }
-    
-    enum EmptyEnum{
-    	
     }
 }
