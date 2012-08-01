@@ -1,6 +1,9 @@
 package com.tacitknowledge.noexcuses;
 
 import static org.junit.Assert.*;
+
+import java.lang.reflect.Constructor;
+
 import org.junit.Test;
 
 import com.tacitknowledge.noexcuses.DependObject;
@@ -36,4 +39,18 @@ public class StubBuilderTest {
 		assertTrue(DependObject.class.isAssignableFrom(objects[0].getClass()));
 	}
 
+	@Test
+	public void testSmallestConstructor() throws Exception {
+		StubBuilder stubBuilder = new StubBuilder();
+		Constructor<DummyObject> constructor = stubBuilder.getSmallestConstructor(DummyObject.class);
+		
+		assertEquals(2, constructor.getParameterTypes().length);
+	}
+	
+	@Test
+	public void testGetDefaultContructor() throws Exception {
+		StubBuilder stubBuilder = new StubBuilder();
+		assertNull(stubBuilder.getDefaultConstructor(DummyObject.class));
+		assertNotNull(stubBuilder.getDefaultConstructor(ExtendedPojo.class));
+	}
 }
