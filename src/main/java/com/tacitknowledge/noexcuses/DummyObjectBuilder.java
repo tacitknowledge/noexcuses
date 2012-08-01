@@ -13,14 +13,14 @@ import java.util.Map;
  *  Originally created: Nov 1, 2006
  */
 public class DummyObjectBuilder extends AbstractParamBuilder implements ParamBuilder {
-    private Map instanceMappings;
+    private Map<Class<?>, Object> instanceMappings;
     private ClassTypeHandlerChain chain;
 
-    public DummyObjectBuilder(Map instanceMappings) {
+    public DummyObjectBuilder(Map<Class<?>, Object> instanceMappings) {
         this.instanceMappings = instanceMappings;
     }
 
-    public DummyObjectBuilder(Map instanceMappings, ClassTypeHandlerChain chain) {
+    public DummyObjectBuilder(Map<Class<?>, Object> instanceMappings, ClassTypeHandlerChain chain) {
         this.instanceMappings = instanceMappings;
         this.chain = chain;
     }
@@ -45,8 +45,8 @@ public class DummyObjectBuilder extends AbstractParamBuilder implements ParamBui
         return instance;
     }
 
-    public Object createInstance(Constructor constructor) {
-        Object instance = null;
+    public <T> T createInstance(Constructor<T> constructor) {
+        T instance = null;
         try {
             instance = constructor.newInstance(createParams(constructor.getParameterTypes()));
         } catch (Exception e) {

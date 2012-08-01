@@ -69,12 +69,12 @@ public class MethodTester implements BeanTester {
         this.exceptionHandler = exceptionHandler;
     }
 
-
     public void performTest(Object testee) {
         performTest(testee,methodSig,exclusionSig);
     }
+    
     public void performTest(Object testee, String methodSignature, String[] exclusionSignatures) {
-        Class testClass = testee.getClass();
+        Class<?> testClass = testee.getClass();
         Collection<Method> methods = pruneMethods(testClass);
         for (Method method : methods) {
             if (passesFilters(method,methodSignature,exclusionSignatures)) {
@@ -110,7 +110,7 @@ public class MethodTester implements BeanTester {
         }
         return true;
     }
-    private Collection<Method> pruneMethods(Class testClass) {
+    private Collection<Method> pruneMethods(Class<?> testClass) {
         Method[] methods = testClass.getMethods();
         Method[] objMethods = Object.class.getMethods();
         Collection<Method> results = new ArrayList<Method>(Arrays.asList(methods));
@@ -120,7 +120,7 @@ public class MethodTester implements BeanTester {
 
     private void runMethod(Method method, Object testee) {
         if (paramBuilder == null) {
-            paramBuilder = new DummyObjectBuilder(new HashMap(),
+            paramBuilder = new DummyObjectBuilder(new HashMap<Class<?>, Object>(),
                                                         ClassTypeHandlerChain.defaultTypeChain());
         }
         if (testedMethods == null) {

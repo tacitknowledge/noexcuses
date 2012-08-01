@@ -11,10 +11,10 @@ import java.util.ArrayList;
  */
 public class TestManager {
 
-    private static Map myInstances;
+    private static Map<Class<?>, Object> myInstances;
 
     static {
-        myInstances = new HashMap();
+        myInstances = new HashMap<Class<?>, Object>();
         myInstances.put(long.class, 1);
         myInstances.put(int.class, 1);
         myInstances.put(String.class, "1");
@@ -36,7 +36,7 @@ public class TestManager {
      * @param instanceMap
      * @return collection of constructed objects
      */
-    public static Collection testConstruction(Class toTest, Map instanceMap) {
+    public static <T> Collection<T> testConstruction(Class<T> toTest, Map<Class<?>, Object> instanceMap) {
         myInstances.putAll(instanceMap);
         return testConstruction(toTest);
     }
@@ -44,12 +44,13 @@ public class TestManager {
     /**
      * @param toTest
      */
-    public static Collection testConstruction(Class toTest) {
+    @SuppressWarnings("unchecked")
+	public static <T> Collection<T> testConstruction(Class<T> toTest) {
         DummyObjectBuilder dummyObjectBuilder = new DummyObjectBuilder(myInstances,
                                                                        ClassTypeHandlerChain.defaultTypeChain());
-        Collection instances = new ArrayList();
-        Constructor[] constructors = toTest.getConstructors();
-        for (Constructor constructor : constructors) {
+        Collection<T> instances = new ArrayList<T>();
+        Constructor<T>[] constructors = (Constructor<T>[]) toTest.getConstructors();
+        for (Constructor<T> constructor : constructors) {
             instances.add(dummyObjectBuilder.createInstance(constructor));
         }
         return instances;
@@ -66,7 +67,7 @@ public class TestManager {
         return tester;
     }
 
-    public static MethodTester testMethods(Object toTest, Map instanceMap){
+    public static <T> MethodTester testMethods(T toTest, Map<Class<?>, Object> instanceMap){
         myInstances.putAll(instanceMap);
         return testMethods(toTest);
     }
