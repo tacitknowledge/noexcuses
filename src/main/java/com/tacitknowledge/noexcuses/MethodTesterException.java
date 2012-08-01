@@ -11,8 +11,9 @@ import java.lang.reflect.Method;
  */
 public class MethodTesterException extends RuntimeException {
 
-
-    public static final String DEFAULT_PREFIX = "Exception occurred while running executing target method [";
+	private static final long serialVersionUID = 1987474748242613605L;
+	
+	public static final String DEFAULT_PREFIX = "Exception occurred while running executing target method [";
     public static final String DEFAULT_POSTFIX = "] See root cause.";
 
     public MethodTesterException(Method method) {
