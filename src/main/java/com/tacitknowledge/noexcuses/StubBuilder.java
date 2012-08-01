@@ -1,21 +1,36 @@
 package com.tacitknowledge.noexcuses;
 
+import java.io.Serializable;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 import org.mockito.Mockito;
 import org.mockito.internal.creation.ClassNameFinder;
-import org.mockito.internal.invocation.Invocation;
 import org.mockito.internal.util.MockName;
 import org.mockito.internal.util.MockUtil;
 import org.mockito.internal.util.ObjectMethodsGuru;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import java.io.Serializable;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-import java.util.*;
-
 /** @author mshort */
-@SuppressWarnings("PMD")
+@SuppressWarnings({"PMD", "unchecked"})
 public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
 {
     /** The strategy used for returning custom empty values for stubbed methods. */
@@ -34,20 +49,20 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
      * @param <T>       the type of the passed object.
      * @return the primitive type object with a custom default value or a mock of the passed type
      */
-    @SuppressWarnings("unchecked")
+
     protected <T> T createObject(final Class<T> paramType)
     {
         if (paramType.isPrimitive() || isFinal(paramType))
         {
-            return (T) customEmptyValues.returnValueFor(paramType); //unchecked cast
+            return (T) customEmptyValues.returnValueFor(paramType);
         }
         return Mockito.mock(paramType, customEmptyValues);
     }
 
-    protected Constructor getDefaultConstructor(Class paramType)
+    protected <T> Constructor<T> getDefaultConstructor(Class<T> paramType)
     {
-        Constructor[] constructors = paramType.getConstructors();
-        for (Constructor constructor : constructors)
+        Constructor<T>[] constructors = (Constructor<T>[]) paramType.getConstructors();
+        for (Constructor<T> constructor : constructors)
         {
             if (constructor.getParameterTypes().length == 0)
             {
@@ -57,15 +72,15 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         return null;
     }
 
-    protected Constructor getSmallestConstructor(Class paramType)
+	protected <T> Constructor<T> getSmallestConstructor(Class<T> paramType)
     {
-        List<Constructor> constructors = Arrays.asList(paramType.getDeclaredConstructors());
-        Comparator comparator = new Comparator()
+        List<Constructor<T>> constructors = Arrays.asList(
+        		((Constructor<T>[]) paramType.getDeclaredConstructors()));
+        
+        Comparator<Constructor<T>> comparator = new Comparator<Constructor<T>>()
         {
-            public int compare(Object o1, Object o2)
+            public int compare(Constructor<T> one, Constructor<T> two)
             {
-                Constructor one = (Constructor) o1;
-                Constructor two = (Constructor) o2;
                 return new Integer(one.getParameterTypes().length).compareTo(two
                         .getParameterTypes().length);
             }
@@ -75,12 +90,12 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         return constructors.get(0);
     }
 
-    protected boolean isFinal(Class paramType)
+    protected boolean isFinal(Class<?> paramType)
     {
         return Modifier.isFinal(paramType.getModifiers());
     }
 
-    protected String defaultMockNameForType(Class mockedType)
+    protected String defaultMockNameForType(Class<?> mockedType)
     {
         return customEmptyValues.valueForToString(mockedType);
     }

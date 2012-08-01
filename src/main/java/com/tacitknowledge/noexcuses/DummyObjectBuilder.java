@@ -25,11 +25,12 @@ public class DummyObjectBuilder extends AbstractParamBuilder implements ParamBui
         this.chain = chain;
     }
 
-    public Object createObject(Class type) {
-        Constructor[] constructors = type.getConstructors();
-        Object instance = null;
+    @SuppressWarnings("unchecked")
+	public <T> T createObject(Class<T> type) {
+        Constructor<T>[] constructors = (Constructor<T>[]) type.getConstructors();
+        T instance = null;
         if (instanceMappings.get(type) != null) {
-            instance = instanceMappings.get(type);
+            instance = (T) instanceMappings.get(type);
         } else {
             if (constructors != null) {
                 if (constructors.length > 0) {
