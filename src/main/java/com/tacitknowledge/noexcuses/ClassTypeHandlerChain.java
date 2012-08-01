@@ -16,12 +16,6 @@ public class ClassTypeHandlerChain {
         this.handlList = handlList;
     }
 
-    public void addHandler(ClassTypeHandler handler){
-        if(handlList == null){
-            handlList = new ArrayList<ClassTypeHandler>();
-        }
-    }
-
     public <T> T processChain(Class<T> type){
         T result = null;
         for (Object aHandlList : handlList) {
