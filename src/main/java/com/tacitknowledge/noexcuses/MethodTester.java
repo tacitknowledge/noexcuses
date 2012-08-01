@@ -154,15 +154,4 @@ public class MethodTester implements BeanTester {
     public Collection<String> getTestedMethods() {
         return testedMethods;
     }
-
-    public void printTestedMethods() {
-        System.out.println("Tested:");
-        if (testedMethods != null) {
-            for (String s : testedMethods) {
-                System.out.println(s);
-            }
-        } else {
-            System.out.println("No methods tested");
-        }
-    }
 }
