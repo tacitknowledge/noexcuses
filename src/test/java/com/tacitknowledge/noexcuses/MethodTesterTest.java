@@ -1,19 +1,22 @@
 package com.tacitknowledge.noexcuses;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Test;
+
 /**
  *  Originally created: Oct 31, 2006
  */
-public class TestMethodTester extends TestCase {
+public class MethodTesterTest {
 
     public static final String THROW_AN_EXCEPTION = "throwAnException";
 
+    @Test
     public void testSimpleMethod() throws IllegalAccessException, InvocationTargetException {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("get");
@@ -23,6 +26,7 @@ public class TestMethodTester extends TestCase {
         assertEquals(2, tester.getTestedMethods().size());
     }
 
+    @Test
     public void testAntoherSimpleMethod() throws IllegalAccessException, InvocationTargetException {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("is");
@@ -31,6 +35,7 @@ public class TestMethodTester extends TestCase {
         assertEquals(1, tester.getTestedMethods().size());
     }
 
+    @Test
     public void testSilentSimpleMethod() throws IllegalAccessException, InvocationTargetException {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("is");
@@ -39,6 +44,7 @@ public class TestMethodTester extends TestCase {
         assertEquals(1, tester.getTestedMethods().size());
     }
 
+    @Test
     public void testAllMethod() throws IllegalAccessException, InvocationTargetException {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("",new String[]{"NEVER"},null,ExceptionHandler.SILENT_ON_EXCEPTION);
@@ -48,12 +54,14 @@ public class TestMethodTester extends TestCase {
         //tester.printTestedMethods();
     }
 
+    @Test
     public void testManager(){
         TestManager.testConstruction(DummyObject.class);
         MethodTester tester = TestManager.testMethods(new DummyObject("one", "two", true));
         //tester.printTestedMethods();
     }
 
+    @Test
     public void testFailOnException() throws InvocationTargetException, IllegalAccessException {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester(THROW_AN_EXCEPTION,new String[]{"NEVER"},null,ExceptionHandler.FAIL_ON_EXCEPTION);
@@ -69,11 +77,9 @@ public class TestMethodTester extends TestCase {
           assertEquals(MethodTesterException.DEFAULT_PREFIX + THROW_AN_EXCEPTION
                   + MethodTesterException.DEFAULT_POSTFIX,e.getMessage());
         }
-
-
-
     }
 
+    @Test
     public void testSwallowException() throws InvocationTargetException, IllegalAccessException {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester(THROW_AN_EXCEPTION,new String[]{"NEVER"},null,ExceptionHandler.SILENT_ON_EXCEPTION);
@@ -83,6 +89,8 @@ public class TestMethodTester extends TestCase {
         tester.performTest(ob);
 
     }
+    
+    @Test
     public void testGetterAndSetterConvenience() {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester();
@@ -96,6 +104,7 @@ public class TestMethodTester extends TestCase {
 
     }
 
+    @Test
     public void testCreatingDummy(){
         Map myInstances = new HashMap();
         myInstances.put(long.class, 2);

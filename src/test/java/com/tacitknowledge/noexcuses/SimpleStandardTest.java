@@ -1,10 +1,12 @@
 package com.tacitknowledge.noexcuses;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class TestSimpleStandard extends TestCase {
+import org.junit.Test;
 
+public class SimpleStandardTest {
 
+	@Test
     public void testTestStandard() {
 		SimpleStandard ss = new SimpleStandard();
 		assertNotNull(ss.getState());

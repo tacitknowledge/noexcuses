@@ -1,16 +1,18 @@
 package com.tacitknowledge.noexcuses;
 
-import junit.framework.TestCase;
 
 import java.lang.reflect.Constructor;
+
+import org.junit.Test;
 
 /*
  *
  * Originally created: Nov 16, 2006
  */
 
-public class TestConstructorOrdering extends TestCase {
+public class ConstructorOrderingTest {
 
+	@Test
 	public void testConstructorSignatureSortOrder() {
 		Class[] classes = new Class[] {
 			MyStaticInnerClass.class,
