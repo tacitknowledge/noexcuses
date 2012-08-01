@@ -7,7 +7,7 @@ package com.tacitknowledge.noexcuses;
  * Time: 4:58:07 PM
  * To change this template use File | Settings | File Templates.
  */
-abstract public class AbstractParamBuilder implements com.tacitknowledge.noexcuses.ParamBuilder
+abstract public class AbstractParamBuilder implements ParamBuilder
 {
     public Object[] createParams(Class<?>[] paramTypes)
     {
