@@ -5,6 +5,7 @@ import org.mockito.internal.creation.ClassNameFinder;
 import org.mockito.internal.invocation.Invocation;
 import org.mockito.internal.util.MockName;
 import org.mockito.internal.util.MockUtil;
+import org.mockito.internal.util.ObjectMethodsGuru;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -89,7 +90,9 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
     {
         /** Serial id */
         private static final long serialVersionUID = 989764447988489023L;
-
+        
+        private ObjectMethodsGuru methodsGuru = new ObjectMethodsGuru();
+        
         /** A map of default values */
         private Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
 
@@ -122,7 +125,7 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         /** {@inheritDoc} */
         public Object answer(final InvocationOnMock invocation) throws Throwable
         {
-            if (Invocation.isToString(invocation))
+            if (methodsGuru.isToString(invocation.getMethod()))
             {
                 return valueForToString(invocation.getMock());
             }
