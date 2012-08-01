@@ -1,6 +1,8 @@
 package com.tacitknowledge.noexcuses;
 
 import static org.junit.Assert.*;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.tacitknowledge.noexcuses.DependObject;
@@ -35,5 +37,16 @@ public class StubBuilderTest {
 		Object[] objects = stubBuilder.createParams(new Class[] { clazz });
 		assertTrue(DependObject.class.isAssignableFrom(objects[0].getClass()));
 	}
+	
+	@Test
+	public void testEmptyEnum() {
+		StubBuilder stubBuilder = new StubBuilder();
+		Class clazz = EmptyEnum.class;
+		Object[] objects = stubBuilder.createParams(new Class[] { clazz });
+		assertNull(objects[0]);
+	}
 
+	enum EmptyEnum{
+		
+	}
 }
