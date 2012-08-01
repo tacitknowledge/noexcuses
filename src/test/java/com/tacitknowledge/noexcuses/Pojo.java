@@ -22,6 +22,7 @@ public class Pojo {
 
 	public Pojo() {}
 
+	@SuppressWarnings("unused")
 	private Pojo(int priv) {}
 
 	protected Pojo(long priv) {}

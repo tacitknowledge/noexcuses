@@ -106,7 +106,7 @@ public class MethodTesterTest {
 
     @Test
     public void testCreatingDummy(){
-        Map myInstances = new HashMap();
+        Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
         myInstances.put(long.class, 2);
         myInstances.put(int.class, 2);
         myInstances.put(String.class, "2");
@@ -116,7 +116,7 @@ public class MethodTesterTest {
         myInstances.put(byte.class, 0);
         myInstances.put(boolean.class, false);
 
-        Collection instances = TestManager.testConstruction(DependObject.class, myInstances);
+        Collection<DependObject> instances = TestManager.testConstruction(DependObject.class, myInstances);
 
         assertEquals(2, instances.size());
         boolean oneWasNull = false;
