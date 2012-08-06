@@ -3,17 +3,34 @@ package com.tacitknowledge.noexcuses;
 import java.lang.reflect.Method;
 
 /**
- * Created by IntelliJ IDEA. User: mshort Date: 7/6/12 Time: 1:54 PM To change
- * this template use File | Settings | File Templates.
+ * Exception used as a wrapper for any other exceptions that occur during
+ * the testing phases.
+ * 
+ * @see ExceptionHandler for exception handling flow details
+ * 
+ * @author Matthew Short (mshort@tacitknowledge.com)
  */
 @SuppressWarnings("serial")
-public class MethodTesterException extends RuntimeException {
-
-
-    public static final String DEFAULT_PREFIX = "Exception occurred while running executing target method [";
+public class MethodTesterException extends RuntimeException
+{
+	/**
+	 * Identifies default prefix for method tester exception
+	 */
+    public static final String DEFAULT_PREFIX = 
+    		"Exception occurred while running executing target method [";
+    
+    /**
+	 * Identifies default postfix for method tester exception
+     */
     public static final String DEFAULT_POSTFIX = "] See root cause.";
 
-	public MethodTesterException(Method method, Throwable throwable) {
+    /**
+     * Parameterized constructor
+     * @param method {@link Method} entity that triggered exception
+     * @param throwable instance of {@link Throwable}
+     */
+	public MethodTesterException(Method method, Throwable throwable)
+	{
 		super(DEFAULT_PREFIX + method.getName() + DEFAULT_POSTFIX, throwable);
 	}
 }

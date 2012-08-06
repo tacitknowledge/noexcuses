@@ -15,18 +15,24 @@ import java.util.HashMap;
  * removed.
  * <p/>
  *  Originally created: Oct 31, 2006
+ * @author Matthew Short (mshort@tacitknowledge.com)
  */
-public class MethodTester implements BeanTester {
+public class MethodTester implements BeanTester 
+{
     /**
      * prefix for methods to be included in tester
      */
     private String methodSig;
+
     /**
      * array of method prefixes to exclude
      */
     private String[] exclusionSig;
+    
     private Collection<String> testedMethods;
+    
     private ParamBuilder paramBuilder;
+    
     /**
      * Strategy for handling exceptions when thrown
      * defaults to FAIL_ON_EXCEPTION
@@ -38,47 +44,99 @@ public class MethodTester implements BeanTester {
 	/**
 	 * Test everything...
 	 */
-	public MethodTester() {
+	public MethodTester() 
+	{
 		this("", new String[]{}, new StubBuilder(), ExceptionHandler.FAIL_ON_EXCEPTION);
 	}
 
-	public MethodTester(String methodSig) {
-        this(methodSig,new String[]{},null,ExceptionHandler.FAIL_ON_EXCEPTION);
+	/**
+	 * 
+	 * @param methodSig
+	 */
+	public MethodTester(String methodSig)
+	{
+        this(methodSig, new String[]{}, null, ExceptionHandler.FAIL_ON_EXCEPTION);
     }
 
-    public MethodTester(ExceptionHandler exceptionHandler) {
+	/**
+	 * 
+	 * @param exceptionHandler
+	 */
+    public MethodTester(ExceptionHandler exceptionHandler)
+    {
         this("", new String[]{}, new StubBuilder(), exceptionHandler);
     }
 
-
-    public MethodTester(String methodSig,ExceptionHandler exceptionHandler) {
+    /**
+     * 
+     * @param methodSig
+     * @param exceptionHandler
+     */
+    public MethodTester(String methodSig,ExceptionHandler exceptionHandler)
+    {
         this(methodSig, new String[]{}, new StubBuilder(), exceptionHandler);
     }
-    public MethodTester(String methodSig, String[] exclusionSig, ExceptionHandler exceptionHandler) {
+    
+    /**
+     * 
+     * @param methodSig
+     * @param exclusionSig
+     * @param exceptionHandler
+     */
+    public MethodTester(String methodSig, String[] exclusionSig, ExceptionHandler exceptionHandler)
+    {
         this(methodSig, exclusionSig, new StubBuilder(), exceptionHandler);
     }
 
-    public MethodTester(String methodSig, ParamBuilder paramBuilder) {
-        this(methodSig,new String[]{},paramBuilder,ExceptionHandler.FAIL_ON_EXCEPTION);
-
+    /**
+     * 
+     * @param methodSig
+     * @param paramBuilder
+     */
+    public MethodTester(String methodSig, ParamBuilder paramBuilder)
+    {
+        this(methodSig, new String[]{}, paramBuilder, ExceptionHandler.FAIL_ON_EXCEPTION);
     }
-    public MethodTester(String methodSig, String[] exclusionSig, ParamBuilder paramBuilder, ExceptionHandler exceptionHandler) {
+    
+    /**
+     * 
+     * @param methodSig
+     * @param exclusionSig
+     * @param paramBuilder
+     * @param exceptionHandler
+     */
+    public MethodTester(String methodSig, String[] exclusionSig, ParamBuilder paramBuilder,
+    		ExceptionHandler exceptionHandler)
+    {
         this.methodSig = methodSig;
         this.exclusionSig = exclusionSig;
         this.paramBuilder = paramBuilder;
         this.exceptionHandler = exceptionHandler;
     }
 
-    public void performTest(Object testee) {
-        performTest(testee,methodSig,exclusionSig);
+    /**
+     * 
+     */
+    public void performTest(Object testee)
+    {
+        performTest(testee, methodSig, exclusionSig);
     }
     
-    public void performTest(Object testee, String methodSignature, String[] exclusionSignatures) {
+    /**
+     * 
+     * @param testee
+     * @param methodSignature
+     * @param exclusionSignatures
+     */
+    public void performTest(Object testee, String methodSignature, String[] exclusionSignatures) 
+    {
         Class<?> testClass = testee.getClass();
         Collection<Method> methods = pruneMethods(testClass);
-        for (Method method : methods) {
-            if (passesFilters(method,methodSignature,exclusionSignatures)) {
-                runMethod( method, testee);
+        for (Method method : methods)
+        {
+            if (passesFilters(method, methodSignature, exclusionSignatures))
+            {
+                runMethod(method, testee);
             }
         }
     }
@@ -87,8 +145,9 @@ public class MethodTester implements BeanTester {
      * uses the constructor exclusion signatures
      * @param testee
      */
-    public void performGettersAndSetters(Object testee) {
-        performGettersAndSetters(testee,exclusionSig);
+    public void performGettersAndSetters(Object testee)
+    {
+        performGettersAndSetters(testee, exclusionSig);
     }
 
     /**
@@ -96,21 +155,31 @@ public class MethodTester implements BeanTester {
      * @param testee
      * @param exclusionSignatures
      */
-    public void performGettersAndSetters(Object testee, String[] exclusionSignatures) {
-        performTest(testee,"get",exclusionSignatures);
-        performTest(testee,"set",exclusionSignatures);
+    public void performGettersAndSetters(Object testee, String[] exclusionSignatures)
+    {
+        performTest(testee, "get", exclusionSignatures);
+        performTest(testee, "set", exclusionSignatures);
     }
 
-    private boolean passesFilters(Method method, String methodSignature, String[] exclusionSignatures) {
+    private boolean passesFilters(Method method, String methodSignature,
+    		String[] exclusionSignatures)
+    {
         if (!method.getName().startsWith(methodSignature))
+        {
             return false;
-        for(String exclusion : exclusionSignatures) {
+        }
+        for (String exclusion : exclusionSignatures) 
+        {
             if (method.getName().startsWith(exclusion))
+            {
                 return false;
+            }
         }
         return true;
     }
-    private Collection<Method> pruneMethods(Class<?> testClass) {
+    
+    private Collection<Method> pruneMethods(Class<?> testClass) 
+    {
         Method[] methods = testClass.getMethods();
         Method[] objMethods = Object.class.getMethods();
         Collection<Method> results = new ArrayList<Method>(Arrays.asList(methods));
@@ -118,19 +187,25 @@ public class MethodTester implements BeanTester {
         return results;
     }
 
-    private void runMethod(Method method, Object testee) {
-        if (paramBuilder == null) {
+    private void runMethod(Method method, Object testee)
+    {
+        if (paramBuilder == null) 
+        {
             paramBuilder = new DummyObjectBuilder(new HashMap<Class<?>, Object>(),
                                                         ClassTypeHandlerChain.defaultTypeChain());
         }
-        if (testedMethods == null) {
+        if (testedMethods == null) 
+        {
             testedMethods = new ArrayList<String>();
         }
-        try {
+        try 
+        {
             method.invoke(testee, paramBuilder.createParams(method.getParameterTypes()));
             testedMethods.add(method.getName());
-        } catch (Exception e) {
-            exceptionHandler.handleException(e,method);
+        } 
+        catch (Exception e) 
+        {
+            exceptionHandler.handleException(e, method);
         }
     }
 
@@ -144,14 +219,20 @@ public class MethodTester implements BeanTester {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public void performSilentTest(Object testee) {
+    public void performSilentTest(Object testee) 
+    {
         ExceptionHandler temp = this.exceptionHandler;
         this.exceptionHandler = ExceptionHandler.SILENT_ON_EXCEPTION;
         performTest(testee);
         this.exceptionHandler = temp;
     }
 
-    public Collection<String> getTestedMethods() {
+    /**
+     * 
+     * @return
+     */
+    public Collection<String> getTestedMethods() 
+    {
         return testedMethods;
     }
 }

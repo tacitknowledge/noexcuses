@@ -5,14 +5,18 @@ import org.apache.commons.lang.ArrayUtils;
 /**
  * Originally created: Nov 1, 2006
  */
-public class EnumTypeHandler implements ClassTypeHandler {
-
+public class EnumTypeHandler implements ClassTypeHandler 
+{
+	@Override
 	@SuppressWarnings("unchecked")
-	public <T> T createInstance(Class<T> type) {
+	public <T> T createInstance(Class<T> type)
+	{
 		T instance = null;
-		if (type.isEnum()) {
+		if (type.isEnum()) 
+		{
 			Object[] enums = type.getEnumConstants();
-			if (ArrayUtils.isNotEmpty(enums)) {
+			if (ArrayUtils.isNotEmpty(enums)) 
+			{
 				instance = (T) enums[0];
 			}
 		}
