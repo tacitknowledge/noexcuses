@@ -32,14 +32,6 @@ public class TestManager
         myInstances.put(byte.class, 1);
         myInstances.put(boolean.class, true);
     }
-    
-    /**
-     * Hiding default constructor
-     */
-    private TestManager()
-    {
-    	// no-op
-    }
 
     /**
      * The instance map will return an object of a particular instance once one is found
