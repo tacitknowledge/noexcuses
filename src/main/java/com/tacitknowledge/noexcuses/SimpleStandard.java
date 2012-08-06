@@ -7,16 +7,35 @@ package com.tacitknowledge.noexcuses;
  * for management by a JMX agent:
  *      - the read/write "State" attribute,
  *      - the read only "NbChanges" attribute,
- *	- the "reset()" operation.
+ * - the "reset()" operation.
  *
  * This object also has one property and one method not exposed
  * for management by a JMX agent:
- *	- the "NbResets" property,
- *	- the "getNbResets()" method.
+ * - the "NbResets" property,
+ * - the "getNbResets()" method.
+ * 
+ *  @author Matthew Short (mshort@tacitknowledge.com)
  */
 
-public class SimpleStandard implements SimpleStandardMBean {
+public class SimpleStandard implements SimpleStandardMBean
+{
+    /*
+     * -----------------------------------------------------
+     * ATTRIBUTES ACCESSIBLE FOR MANAGEMENT BY A JMX AGENT
+     * -----------------------------------------------------
+     */
 
+    private String state = "initial state";
+    private int nbChanges = 0;
+
+    /*
+     * -----------------------------------------------------
+     * PROPERTY NOT ACCESSIBLE FOR MANAGEMENT BY A JMX AGENT
+     * -----------------------------------------------------
+     */
+
+    private int nbResets = 0;
+    
     /*
      * -----------------------------------------------------
      * CONSTRUCTORS
@@ -40,7 +59,8 @@ public class SimpleStandard implements SimpleStandardMBean {
      *
      * @return the current value of the "State" attribute.
      */
-    public String getState() {
+    public String getState()
+    {
         return state;
     }
 
@@ -49,7 +69,8 @@ public class SimpleStandard implements SimpleStandardMBean {
      *
      * @param s  the new value of the "State" attribute.
      */
-    public void setState(String s) {
+    public void setState(String s)
+    {
         state = s;
         nbChanges++;
     }
@@ -60,7 +81,8 @@ public class SimpleStandard implements SimpleStandardMBean {
      *
      * @return the current value of the "NbChanges" attribute.
      */
-    public int getNbChanges() {
+    public int getNbChanges()
+    {
         return nbChanges;
     }
 
@@ -68,8 +90,9 @@ public class SimpleStandard implements SimpleStandardMBean {
      * Operation: reset to their initial values the "State" and "NbChanges"
      * attributes of the "SimpleStandard" standard MBean.
      */
-    public void reset() {
-		state = "initial state";
+    public void reset()
+    {
+    	state = "initial state";
         nbChanges = 0;
 		nbResets++;
     }
@@ -87,25 +110,8 @@ public class SimpleStandard implements SimpleStandardMBean {
      *
      * @return the current value of the "NbResets" property.
      */
-    public int getNbResets() {
+    public int getNbResets()
+    {
 		return nbResets;
     }
-
-
-    /*
-     * -----------------------------------------------------
-     * ATTRIBUTES ACCESSIBLE FOR MANAGEMENT BY A JMX AGENT
-     * -----------------------------------------------------
-     */
-
-    private String state = "initial state";
-    private int nbChanges = 0;
-
-    /*
-     * -----------------------------------------------------
-     * PROPERTY NOT ACCESSIBLE FOR MANAGEMENT BY A JMX AGENT
-     * -----------------------------------------------------
-     */
-
-    private int nbResets = 0;
 }

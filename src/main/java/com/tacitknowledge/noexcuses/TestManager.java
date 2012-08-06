@@ -1,12 +1,10 @@
 package com.tacitknowledge.noexcuses;
 
 import java.lang.reflect.Constructor;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Collection;
 import java.util.ArrayList;
-
-import javax.media.j3d.Link;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  Originally created: Oct 31, 2006

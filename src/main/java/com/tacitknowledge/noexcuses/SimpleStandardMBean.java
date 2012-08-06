@@ -12,8 +12,11 @@ package com.tacitknowledge.noexcuses;
  *   methods,
  * - a read-only attribute (named "NbChanges") through its getter method,
  * - an operation (named "reset").
+ * 
+ *  @author Matthew Short (mshort@tacitknowledge.com)
  */
-public interface SimpleStandardMBean {
+public interface SimpleStandardMBean 
+{
 
     /**
      * Getter: set the "State" attribute of the "SimpleStandard" standard
@@ -27,7 +30,7 @@ public interface SimpleStandardMBean {
      * Setter: set the "State" attribute of the "SimpleStandard" standard
      * MBean.
      *
-     * @param <VAR>s</VAR> the new value of the "State" attribute.
+     * @param s the new value of the "State" attribute.
      */
     public void setState(String s);
 
