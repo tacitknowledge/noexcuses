@@ -29,8 +29,12 @@ import org.mockito.internal.util.ObjectMethodsGuru;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-/** @author mshort */
-@SuppressWarnings({"PMD", "unchecked"})
+/**
+ * This implementation builds mockito stubs or default values for primitives.
+ * 
+ * @author Matthew Short (mshort@tacitknowledge.com)
+ */
+@SuppressWarnings({ "PMD", "unchecked" })
 public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
 {
     /** The strategy used for returning custom empty values for stubbed methods. */
@@ -42,14 +46,7 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         customEmptyValues = new ReturnOnesAnswerStrategy();
     }
 
-    /**
-     * Creates an object of a given type initialized with a default value.
-     *
-     * @param paramType the class of the object to create.
-     * @param <T>       the type of the passed object.
-     * @return the primitive type object with a custom default value or a mock of the passed type
-     */
-
+    @Override
     protected <T> T createObject(final Class<T> paramType)
     {
         if (paramType.isPrimitive() || isFinal(paramType))
@@ -59,6 +56,15 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         return Mockito.mock(paramType, customEmptyValues);
     }
 
+    /**
+     * Gets default constructor (with no parameters) for the type class
+     * 
+     * @param <T>
+     *            type of class
+     * @param paramType
+     *            {@link Class} instance
+     * @return default {@link Constructor} instance
+     */
     protected <T> Constructor<T> getDefaultConstructor(Class<T> paramType)
     {
         Constructor<T>[] constructors = (Constructor<T>[]) paramType.getConstructors();
@@ -72,13 +78,21 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         return null;
     }
 
-	protected <T> Constructor<T> getSmallestConstructor(Class<T> paramType)
+    /**
+     * Returns constructor with smallest number of parameters.
+     * 
+     * @param <T>
+     *            type of class
+     * @param paramType
+     *            {@link Class} instance
+     * @return default {@link Constructor} instance
+     */
+    protected <T> Constructor<T> getSmallestConstructor(Class<T> paramType)
     {
-        List<Constructor<T>> constructors = Arrays.asList(
-        		((Constructor<T>[]) paramType.getDeclaredConstructors()));
-        
-        Comparator<Constructor<T>> comparator = new Comparator<Constructor<T>>()
-        {
+        List<Constructor<T>> constructors = Arrays.asList(((Constructor<T>[]) paramType
+                .getDeclaredConstructors()));
+
+        Comparator<Constructor<T>> comparator = new Comparator<Constructor<T>>() {
             public int compare(Constructor<T> one, Constructor<T> two)
             {
                 return new Integer(one.getParameterTypes().length).compareTo(two
@@ -90,14 +104,15 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         return constructors.get(0);
     }
 
+    /**
+     * Returns whether class is final
+     * @param paramType
+     *            {@link Class} instance
+     * @return <code>true</code> if the class is final, <code>false</code> otherwise
+     */
     protected boolean isFinal(Class<?> paramType)
     {
         return Modifier.isFinal(paramType.getModifiers());
-    }
-
-    protected String defaultMockNameForType(Class<?> mockedType)
-    {
-        return customEmptyValues.valueForToString(mockedType);
     }
 
     /** A strategy for returning empty objects for mockito. */
@@ -105,9 +120,9 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
     {
         /** Serial id */
         private static final long serialVersionUID = 989764447988489023L;
-        
+
         private ObjectMethodsGuru methodsGuru = new ObjectMethodsGuru();
-        
+
         /** A map of default values */
         private Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
 
@@ -150,8 +165,9 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
 
         /**
          * Gets the toString value for a mock
-         *
-         * @param mock the mock
+         * 
+         * @param mock
+         *            the mock
          * @return toString value for a mock
          */
         public String valueForToString(final Object mock)
@@ -170,8 +186,9 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
 
         /**
          * Gets a default return value for a stubbed method return type
-         *
-         * @param type the type for which we need the default value
+         * 
+         * @param type
+         *            the type for which we need the default value
          * @return the default value
          */
         public Object returnValueFor(final Class<?> type)
@@ -181,8 +198,9 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
             {
                 result = myInstances.get(type);
             }
-            //new instances are used instead of Collections.emptyList(), etc.
-            //to avoid UnsupportedOperationException if code under test modifies returned collection
+            // new instances are used instead of Collections.emptyList(), etc.
+            // to avoid UnsupportedOperationException if code under test modifies returned
+            // collection
             else if (type == Collection.class)
             {
                 result = new LinkedList<Object>();
@@ -239,7 +257,7 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
             {
                 result = new LinkedHashMap<Object, Object>();
             }
-            //Let's not care about the rest of collections.
+            // Let's not care about the rest of collections.
             return result;
         }
     }
