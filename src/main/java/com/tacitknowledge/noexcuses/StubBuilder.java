@@ -34,11 +34,11 @@ import org.mockito.stubbing.Answer;
  * 
  * @author Matthew Short (mshort@tacitknowledge.com)
  */
-@SuppressWarnings({ "PMD", "unchecked" })
+@SuppressWarnings("unchecked")
 public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
 {
     /** The strategy used for returning custom empty values for stubbed methods. */
-    private ReturnOnesAnswerStrategy customEmptyValues;
+    private final ReturnOnesAnswerStrategy customEmptyValues;
 
     /** Default constructor */
     public StubBuilder()
@@ -89,14 +89,14 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
      */
     protected <T> Constructor<T> getSmallestConstructor(Class<T> paramType)
     {
-        List<Constructor<T>> constructors = Arrays.asList(((Constructor<T>[]) paramType
-                .getDeclaredConstructors()));
+        List<Constructor<T>> constructors = Arrays.asList(((Constructor<T>[]) paramType.getDeclaredConstructors()));
 
-        Comparator<Constructor<T>> comparator = new Comparator<Constructor<T>>() {
+        Comparator<Constructor<T>> comparator = new Comparator<Constructor<T>>()
+        {
+            @Override
             public int compare(Constructor<T> one, Constructor<T> two)
             {
-                return new Integer(one.getParameterTypes().length).compareTo(two
-                        .getParameterTypes().length);
+                return new Integer(one.getParameterTypes().length).compareTo(two.getParameterTypes().length);
             }
         };
 
@@ -121,10 +121,10 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         /** Serial id */
         private static final long serialVersionUID = 989764447988489023L;
 
-        private ObjectMethodsGuru methodsGuru = new ObjectMethodsGuru();
+        private final ObjectMethodsGuru methodsGuru = new ObjectMethodsGuru();
 
         /** A map of default values */
-        private Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
+        private final Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
 
         /** Default constructor */
         public ReturnOnesAnswerStrategy()
@@ -153,6 +153,7 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
         }
 
         /** {@inheritDoc} */
+        @Override
         public Object answer(final InvocationOnMock invocation) throws Throwable
         {
             if (methodsGuru.isToString(invocation.getMethod()))
@@ -175,8 +176,7 @@ public class StubBuilder extends AbstractParamBuilder implements ParamBuilder
             MockName name = new MockUtil().getMockName(mock);
             if (name.isSurrogate())
             {
-                return "Mock for " + ClassNameFinder.classNameForMock(mock) + ", hashCode: "
-                        + mock.hashCode();
+                return "Mock for " + ClassNameFinder.classNameForMock(mock) + ", hashCode: " + mock.hashCode();
             }
             else
             {

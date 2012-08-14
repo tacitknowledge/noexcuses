@@ -13,14 +13,13 @@ import java.lang.reflect.Method;
 @SuppressWarnings("serial")
 public class MethodTesterException extends RuntimeException
 {
-	/**
-	 * Identifies default prefix for method tester exception
-	 */
-    public static final String DEFAULT_PREFIX = 
-    		"Exception occurred while running executing target method [";
-    
     /**
-	 * Identifies default postfix for method tester exception
+     * Identifies default prefix for method tester exception
+     */
+    public static final String DEFAULT_PREFIX = "Exception occurred while running executing target method [";
+
+    /**
+     * Identifies default postfix for method tester exception
      */
     public static final String DEFAULT_POSTFIX = "] See root cause.";
 
@@ -29,8 +28,8 @@ public class MethodTesterException extends RuntimeException
      * @param method {@link Method} entity that triggered exception
      * @param throwable instance of {@link Throwable}
      */
-	public MethodTesterException(Method method, Throwable throwable)
-	{
-		super(DEFAULT_PREFIX + method.getName() + DEFAULT_POSTFIX, throwable);
-	}
+    public MethodTesterException(Method method, Throwable throwable)
+    {
+        super(DEFAULT_PREFIX + method.getName() + DEFAULT_POSTFIX, throwable);
+    }
 }

@@ -6,22 +6,26 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  *  Originally created: Oct 31, 2006
+ *  
  *  @author Matthew Short (mshort@tacitknowledge.com)
  */
-public class TestManager 
+public class TestManager
 {
-	/**
-	 * Map holding type->value relationships. Used for determination
-	 * of the instance to be used for the given type. 
-	 */
+    /**
+     * Map holding type->value relationships. Used for determination
+     * of the instance to be used for the given type. 
+     */
     private static Map<Class<?>, Object> myInstances;
 
     /**
      * Initialization of instance map with some predefined type->value references
      */
-    static {
+    static
+    {
         myInstances = new HashMap<Class<?>, Object>();
         myInstances.put(long.class, 1);
         myInstances.put(int.class, 1);
@@ -42,12 +46,11 @@ public class TestManager
      * 
      * @param <T> the type of class element to test constructor method on
      * @param toTest the subject of construction testing, i.e. class to undergo
-     * 		the process of constructor testing
+     *      the process of constructor testing
      * @param instanceMap map with type -> value references
      * @return collection of constructed objects
      */
-    public static <T> Collection<T> testConstruction(Class<T> toTest, Map<Class<?>,
-    		Object> instanceMap)
+    public static <T> Collection<T> testConstruction(Class<T> toTest, Map<Class<?>, Object> instanceMap)
     {
         myInstances.putAll(instanceMap);
         return testConstruction(toTest);
@@ -65,38 +68,39 @@ public class TestManager
      * 
      * @param <T> the type of class element to test constructor method on
      * @param toTest the subject of construction testing, i.e. class to undergo
-     * 		the process of constructor testing
+     *      the process of constructor testing
      * @return collection of constructed objects
      */
     @SuppressWarnings("unchecked")
-	public static <T> Collection<T> testConstruction(Class<T> toTest) 
-	{
+    public static <T> Collection<T> testConstruction(Class<T> toTest)
+    {
         DummyObjectBuilder dummyObjectBuilder = new DummyObjectBuilder(myInstances,
-        		ClassTypeHandlerChain.defaultTypeChain());
+                ClassTypeHandlerChain.defaultTypeChain());
         Collection<T> instances = new ArrayList<T>();
         Constructor<T>[] constructors = (Constructor<T>[]) toTest.getConstructors();
-        
+
         for (Constructor<T> constructor : constructors)
         {
             instances.add(dummyObjectBuilder.createInstance(constructor));
         }
-        
+
         return instances;
     }
 
     /**
+     * 
      * @param <T> the type of object element whose methods to be tested
      * @param toTest object to undergo methods testing
      * @return {@link MethodTester} instance 
      */
-    public static <T> MethodTester testMethods(T toTest) 
+    public static <T> MethodTester testMethods(T toTest)
     {
-        MethodTester tester = new MethodTester("");
-        try 
+        MethodTester tester = new MethodTester(StringUtils.EMPTY);
+        try
         {
             tester.performSilentTest(toTest);
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             System.out.println("Error performing method tests:" + e.getMessage());
         }

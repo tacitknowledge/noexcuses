@@ -1,8 +1,14 @@
 package com.tacitknowledge.noexcuses;
 
 /**
- *  Originally created: Nov 1, 2006
+ * @author Matthew Short (mshort@tacitknowledge.com)
  */
-public interface ClassTypeHandler {
+public interface ClassTypeHandler
+{
+    /**
+     * @param <T> 
+     * @param type
+     * @return
+     */
     <T> T createInstance(Class<T> type);
 }

@@ -21,7 +21,6 @@
         <rootFolder>..</rootFolder>
         <jdepend.average.distance.threshold>0.4</jdepend.average.distance.threshold>
         <cpd.failOnViolation>false</cpd.failOnViolation>
-
     </properties>
 
     <dependencies>

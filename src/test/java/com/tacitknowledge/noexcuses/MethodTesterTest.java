@@ -1,6 +1,8 @@
 package com.tacitknowledge.noexcuses;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
@@ -12,12 +14,13 @@ import org.junit.Test;
 /**
  *  Originally created: Oct 31, 2006
  */
-public class MethodTesterTest {
-
+public class MethodTesterTest
+{
     public static final String THROW_AN_EXCEPTION = "throwAnException";
 
     @Test
-    public void testSimpleMethod() throws IllegalAccessException, InvocationTargetException {
+    public void testSimpleMethod() throws IllegalAccessException, InvocationTargetException
+    {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("get");
         tester.performTest(ob);
@@ -27,7 +30,8 @@ public class MethodTesterTest {
     }
 
     @Test
-    public void testAntoherSimpleMethod() throws IllegalAccessException, InvocationTargetException {
+    public void testAntoherSimpleMethod() throws IllegalAccessException, InvocationTargetException
+    {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("is");
         tester.performTest(ob);
@@ -36,7 +40,8 @@ public class MethodTesterTest {
     }
 
     @Test
-    public void testSilentSimpleMethod() throws IllegalAccessException, InvocationTargetException {
+    public void testSilentSimpleMethod() throws IllegalAccessException, InvocationTargetException
+    {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester("is");
         tester.performSilentTest(ob);
@@ -45,9 +50,10 @@ public class MethodTesterTest {
     }
 
     @Test
-    public void testAllMethod() throws IllegalAccessException, InvocationTargetException {
+    public void testAllMethod() throws IllegalAccessException, InvocationTargetException
+    {
         DummyObject ob = new DummyObject("one", "two", true);
-        MethodTester tester = new MethodTester("",new String[]{"NEVER"},null,ExceptionHandler.SILENT_ON_EXCEPTION);
+        MethodTester tester = new MethodTester("", new String[] { "NEVER" }, null, ExceptionHandler.SILENT_ON_EXCEPTION);
         tester.performSilentTest(ob);
 
         assertEquals(4, tester.getTestedMethods().size());
@@ -55,43 +61,54 @@ public class MethodTesterTest {
     }
 
     @Test
-    public void testManager(){
+    public void testManager()
+    {
         TestManager.testConstruction(DummyObject.class);
         MethodTester tester = TestManager.testMethods(new DummyObject("one", "two", true));
         //tester.printTestedMethods();
     }
 
     @Test
-    public void testFailOnException() throws InvocationTargetException, IllegalAccessException {
+    public void testFailOnException() throws InvocationTargetException, IllegalAccessException
+    {
         DummyObject ob = new DummyObject("one", "two", true);
-        MethodTester tester = new MethodTester(THROW_AN_EXCEPTION,new String[]{"NEVER"},null,ExceptionHandler.FAIL_ON_EXCEPTION);
+        MethodTester tester = new MethodTester(THROW_AN_EXCEPTION, new String[] { "NEVER" }, null,
+                ExceptionHandler.FAIL_ON_EXCEPTION);
 
         //check deprecated method still passes
         tester.performSilentTest(ob);
 
-        tester = new MethodTester(THROW_AN_EXCEPTION,new String[]{"NEVER"},null,ExceptionHandler.FAIL_ON_EXCEPTION);
-        try {
+        tester = new MethodTester(THROW_AN_EXCEPTION, new String[] { "NEVER" }, null,
+                ExceptionHandler.FAIL_ON_EXCEPTION);
+        try
+        {
             tester.performTest(ob);
             fail("should have failed");
-        } catch (RuntimeException e) {
-          assertEquals(MethodTesterException.DEFAULT_PREFIX + THROW_AN_EXCEPTION
-                  + MethodTesterException.DEFAULT_POSTFIX,e.getMessage());
+        }
+        catch (RuntimeException e)
+        {
+            assertEquals(MethodTesterException.DEFAULT_PREFIX + THROW_AN_EXCEPTION
+                    + MethodTesterException.DEFAULT_POSTFIX, e.getMessage());
         }
     }
 
     @Test
-    public void testSwallowException() throws InvocationTargetException, IllegalAccessException {
+    public void testSwallowException() throws InvocationTargetException, IllegalAccessException
+    {
         DummyObject ob = new DummyObject("one", "two", true);
-        MethodTester tester = new MethodTester(THROW_AN_EXCEPTION,new String[]{"NEVER"},null,ExceptionHandler.SILENT_ON_EXCEPTION);
+        MethodTester tester = new MethodTester(THROW_AN_EXCEPTION, new String[] { "NEVER" }, null,
+                ExceptionHandler.SILENT_ON_EXCEPTION);
         tester.performSilentTest(ob);
 
-        tester = new MethodTester(THROW_AN_EXCEPTION,new String[]{"NEVER"},null,ExceptionHandler.PRINT_ON_EXCEPTION);
+        tester = new MethodTester(THROW_AN_EXCEPTION, new String[] { "NEVER" }, null,
+                ExceptionHandler.PRINT_ON_EXCEPTION);
         tester.performTest(ob);
 
     }
-    
+
     @Test
-    public void testGetterAndSetterConvenience() {
+    public void testGetterAndSetterConvenience()
+    {
         DummyObject ob = new DummyObject("one", "two", true);
         MethodTester tester = new MethodTester();
         tester.performGettersAndSetters(ob);
@@ -100,12 +117,13 @@ public class MethodTesterTest {
         assertTrue(testedMethods.contains("getSomething"));
         assertTrue(testedMethods.contains("getAnother"));
 
-        assertEquals(3,testedMethods.size());
+        assertEquals(3, testedMethods.size());
 
     }
 
     @Test
-    public void testCreatingDummy(){
+    public void testCreatingDummy()
+    {
         Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
         myInstances.put(long.class, 2);
         myInstances.put(int.class, 2);
@@ -120,19 +138,22 @@ public class MethodTesterTest {
 
         assertEquals(2, instances.size());
         boolean oneWasNull = false;
-        for (Object o : instances) {
+        for (Object o : instances)
+        {
             assertTrue(o instanceof DependObject);
-            DependObject dependObject = (DependObject)o;
+            DependObject dependObject = (DependObject) o;
             assertEquals("2", dependObject.getMyTestObject().getAnother());
 
-            if(dependObject.getType() == null){
-               oneWasNull = true;
+            if (dependObject.getType() == null)
+            {
+                oneWasNull = true;
             }
-            else{
-               assertEquals(MyEnum.Whatever, dependObject.getType());
+            else
+            {
+                assertEquals(MyEnum.Whatever, dependObject.getType());
             }
         }
 
-       assertTrue("One of the objects did not have a null type", oneWasNull);
+        assertTrue("One of the objects did not have a null type", oneWasNull);
     }
 }

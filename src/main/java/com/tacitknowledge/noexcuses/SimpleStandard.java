@@ -26,6 +26,7 @@ public class SimpleStandard implements SimpleStandardMBean
      */
 
     private String state = "initial state";
+
     private int nbChanges = 0;
 
     /*
@@ -35,7 +36,7 @@ public class SimpleStandard implements SimpleStandardMBean
      */
 
     private int nbResets = 0;
-    
+
     /*
      * -----------------------------------------------------
      * CONSTRUCTORS
@@ -59,6 +60,7 @@ public class SimpleStandard implements SimpleStandardMBean
      *
      * @return the current value of the "State" attribute.
      */
+    @Override
     public String getState()
     {
         return state;
@@ -69,6 +71,7 @@ public class SimpleStandard implements SimpleStandardMBean
      *
      * @param s  the new value of the "State" attribute.
      */
+    @Override
     public void setState(String s)
     {
         state = s;
@@ -81,6 +84,7 @@ public class SimpleStandard implements SimpleStandardMBean
      *
      * @return the current value of the "NbChanges" attribute.
      */
+    @Override
     public int getNbChanges()
     {
         return nbChanges;
@@ -90,11 +94,12 @@ public class SimpleStandard implements SimpleStandardMBean
      * Operation: reset to their initial values the "State" and "NbChanges"
      * attributes of the "SimpleStandard" standard MBean.
      */
+    @Override
     public void reset()
     {
-    	state = "initial state";
+        state = "initial state";
         nbChanges = 0;
-		nbResets++;
+        nbResets++;
     }
 
     /*
@@ -112,6 +117,6 @@ public class SimpleStandard implements SimpleStandardMBean
      */
     public int getNbResets()
     {
-		return nbResets;
+        return nbResets;
     }
 }
