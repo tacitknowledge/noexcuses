@@ -3,6 +3,8 @@ package com.tacitknowledge.noexcuses;
 import org.apache.commons.lang.ArrayUtils;
 
 /**
+ * Handles creation of the {@link Enum} types.
+ * 
  * @author Matthew Short (mshort@tacitknowledge.com)
  */
 public class EnumTypeHandler implements ClassTypeHandler

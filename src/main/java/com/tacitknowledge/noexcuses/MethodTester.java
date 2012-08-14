@@ -132,9 +132,6 @@ public class MethodTester implements BeanTester
         this.exceptionHandler = exceptionHandler;
     }
 
-    /**
-     * 
-     */
     @Override
     public void performTest(Object testee)
     {
@@ -261,7 +258,7 @@ public class MethodTester implements BeanTester
     /**
      * 
      * @param method {@link Method} instance to be run
-     * @param testee object method to be invoked against
+     * @param testee object the given method to be invoked against
      */
     private void runMethod(Method method, Object testee)
     {
