@@ -1,6 +1,8 @@
 package com.tacitknowledge.noexcuses;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -66,6 +68,35 @@ public class MethodTesterTest
         TestManager.testConstruction(DummyObject.class);
         MethodTester tester = TestManager.testMethods(new DummyObject("one", "two", true));
         //tester.printTestedMethods();
+    }
+
+    @Test
+    public void testManagerFail()
+    {
+        MethodTester tester = TestManager.testMethods(null);
+        assertNotNull(tester);
+        assertNull(tester.getTestedMethods());
+    }
+
+    @Test
+    public void testManagerMultipleMethods()
+    {
+        Map<Class<?>, Object> myInstances = new HashMap<Class<?>, Object>();
+        myInstances.put(long.class, 2);
+        myInstances.put(int.class, 2);
+        myInstances.put(String.class, "2");
+        myInstances.put(float.class, 2);
+        myInstances.put(double.class, 2);
+        myInstances.put(short.class, 2);
+        myInstances.put(byte.class, 0);
+        myInstances.put(boolean.class, false);
+
+        DummyObject ob = new DummyObject("one", "two", true);
+
+        MethodTester tester = TestManager.testMethods(ob, myInstances);
+        assertNotNull(tester);
+        assertEquals(4, tester.getTestedMethods().size());
+
     }
 
     @Test
