@@ -12,16 +12,22 @@
 
 	<name>Struct test coverage utilities</name>
 	<description>Developer Utilities</description>
-	<url>http://www.tacitknowledge.com</url>
-
-	<properties>
-		<!-- forcing a hudson build -->
-		<!-- relative path to parent root -->
-		<rootFolder>..</rootFolder>
-		<jdepend.average.distance.threshold>0.4</jdepend.average.distance.threshold>
-		<cpd.failOnViolation>false</cpd.failOnViolation>
-	</properties>
-
+	<url>http://www.tacitknowledge.com/noexcuses</url>
+	<inceptionYear>2006</inceptionYear>
+    
+    <properties>
+        <github.repo.name>noexcuses</github.repo.name>
+    </properties>
+    
+    <developers>
+        <developer>
+            <id>mshort</id>
+            <name>Matthew Short</name>
+            <email>mshort at tacitknowledge.com</email>
+            <organization>Tacit Knowledge</organization>
+        </developer>
+    </developers>
+    
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
