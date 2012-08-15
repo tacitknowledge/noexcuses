@@ -1,4 +1,4 @@
-## noexcuses [![Build Status](https://secure.travis-ci.org/tacitknowledge/noexcuses.png?branch=master)](http://travis-ci.org/tacitknowledge/noexcuses)
+# noexcuses 
 
 noexcuses is a mockito extension created to make unit testing simple getters, setters, and constructors less tedious. 
 
