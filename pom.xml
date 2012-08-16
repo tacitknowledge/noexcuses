@@ -10,8 +10,8 @@
 	<packaging>jar</packaging>
 	<version>1.1.0-SNAPSHOT</version>
 
-	<name>Struct test coverage utilities</name>
-	<description>Developer Utilities</description>
+	<name>noexcuses</name>
+	<description>Mockito extension to make unit testing simple POJOs less tedious.</description>
 	<url>http://www.tacitknowledge.com/noexcuses</url>
 	<inceptionYear>2006</inceptionYear>
     
