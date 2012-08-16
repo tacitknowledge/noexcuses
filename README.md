@@ -21,7 +21,7 @@ You can include noexcuses in your Maven project via:
 <dependency>
 	<groupId>com.tacitknowledge</groupId>
 	<artifactId>noexcuses</artifactId>
-	<version>1.1</version>
+	<version>1.1.0</version>
 </dependency>
 ```
 
