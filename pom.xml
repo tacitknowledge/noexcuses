@@ -1,23 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>com.tacitknowledge</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>2</version>
-	</parent>
-	<artifactId>noexcuses</artifactId>
-	<packaging>jar</packaging>
-	<version>1.1.0</version>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.tacitknowledge</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>2</version>
+    </parent>
+    <artifactId>noexcuses</artifactId>
+    <packaging>jar</packaging>
+    <version>1.1.0-SNAPSHOT</version>
 
-	<name>noexcuses</name>
-	<description>Mockito extension to make unit testing simple POJOs less tedious.</description>
-	<url>http://www.tacitknowledge.com/noexcuses</url>
-	<inceptionYear>2006</inceptionYear>
-    
-    <properties>
-        <github.repo.name>noexcuses</github.repo.name>
-    </properties>
-    
+    <name>noexcuses</name>
+    <description>Mockito extension to make unit testing simple POJOs less tedious.</description>
+    <url>http://www.tacitknowledge.com/noexcuses</url>
+    <inceptionYear>2006</inceptionYear>
+
+    <scm>
+        <connection>scm:git:https://github.com/tacitknowledge/noexcuses.git</connection>
+        <developerConnection>scm:git:git@github.com:tacitknowledge/noexcuses.git</developerConnection>
+        <url>https://github.com/tacitknowledge/noexcuses</url>
+    </scm>
+
     <developers>
         <developer>
             <id>mshort</id>
@@ -26,25 +28,25 @@
             <organization>Tacit Knowledge</organization>
         </developer>
     </developers>
-    
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.10</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.9.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>
