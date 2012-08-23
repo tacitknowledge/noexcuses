@@ -25,13 +25,13 @@ public class DummyObject
 
     public DummyObject(String something, String another, boolean trythis)
     {
-        this.something = something;
-        this.another = another;
+    	this(something, another);
         this.trythis = trythis;
     }
 
-    public DummyObject(EmptyEnum emptyEnum, SampleEnum sampleEnum, SampleClass sampleClass)
+    public DummyObject(String another, EmptyEnum emptyEnum, SampleEnum sampleEnum, SampleClass sampleClass)
     {
+    	this.another = another;
         this.emptyEnum = emptyEnum;
         this.sampleEnum = sampleEnum;
         this.sampleClass = sampleClass;
