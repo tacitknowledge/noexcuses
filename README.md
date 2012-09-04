@@ -13,6 +13,34 @@ noexcuses works in combination with coverage tools like emma or cobertura.
 Basically, using it filters out coverage gaps on low risk methods so that the only methods that appear on coverage reports are high risk methods.
 This helps guide us in our craft. 
 
+## Samples - use mockito and reflection to cover low risk methods
+Getters and Setters:
+
+    public void testGetterAndSetterConvenienceMethodWithExclusions() throws Exception {
+        DummyObject object = new DummyObject();
+        MethodTester methodTester = new MethodTester();
+	//exclude certain methods with an exclusion array.
+        methodTester.performGettersAndSetters(object,new String[]{"getSomething"});
+
+    }
+
+Methods:
+```
+    public void testAllMethodsWithGetPrefix() throws Exception {
+        DummyObject object = new DummyObject("Something","another",true);
+        MethodTester methodTester = new MethodTester("get");
+        methodTester.performTest(object);
+    }
+
+```
+Constructors:
+```
+    public void testConstructors() throws Exception {
+        TestManager.testConstruction(DummyObject.class);
+    }
+
+```
+
 ## Start Using noexcuses
 
 You can include noexcuses in your Maven project via:
