@@ -27,7 +27,7 @@ Getters and Setters:
 Methods:
 ```
     public void testAllMethodsWithGetPrefix() throws Exception {
-        DummyObject object = new DummyObject("Something","another",true);
+        DummyObject object = new DummyObject();
         MethodTester methodTester = new MethodTester("get");
         methodTester.performTest(object);
     }
@@ -36,6 +36,7 @@ Methods:
 Constructors:
 ```
     public void testConstructors() throws Exception {
+	//tries all consutrctors on DummyObject
         TestManager.testConstruction(DummyObject.class);
     }
 
